@@ -21,6 +21,9 @@ lib64/
 parts/
 sdist/
 var/
+Include/
+Scripts/
+Lib/
 wheels/
 share/python-wheels/
 *.egg-info/
@@ -69,6 +72,7 @@ instance/
 
 # Scrapy stuff:
 .scrapy
+pyvenv.cfg
 
 # Sphinx documentation
 docs/_build/
