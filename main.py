@@ -22,7 +22,7 @@ def esPrimo(numero, a=2):
 
 
 def Desglosar(numero:int,lista=[]):
-    """Esta funcion recibe un numero y devuelve una lista a partir de este numero creado"""
+    """Esta funcion recibe un numero y devuelve una lista a partir de este numero creado, desde 1 hasta n como aparece en el enunciado"""
     def rev(l):
         """Esta funcion hace que la lista creada se le de reversa, todo recursivamente"""
         if len(l) == 0: return []
@@ -37,7 +37,9 @@ def Desglosar(numero:int,lista=[]):
 
 
 def verificarLista(lista: list, contador, listaaux):
-    """Esta funcion verifica si la lista cumple las condiciones del enunciado, es decir si la suma adyacente es un primo"""
+    """Esta funcion verifica si la lista cumple las condiciones del enunciado, es decir si la suma adyacente es un primo
+    Esta funcion tiene que recibir como parametro si o si la lista a verificar, contador=0 y listaaux=[]
+    """
     largo = len(lista) - 1
     Exito = False
 
@@ -54,7 +56,10 @@ def verificarLista(lista: list, contador, listaaux):
     else:
         return verificarLista(lista, contador + 1, listaaux)
 
+
+
 while True:
+    #Este es el menusito, estoy pensando en cambiarlo ya que contiene un while xd, facilmente reemplazable por un menu recursivo
     try:
         valor = int(input('Ingrese un valor:'))
         if valor==0:
