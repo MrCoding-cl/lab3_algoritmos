@@ -35,6 +35,25 @@ def Desglosar(numero:int,lista=[]):
         lista.append(numero)
         return Desglosar(numero-1,lista)
 
+
+def verificarLista(lista: list, contador, listaaux):
+    """Esta funcion verifica si la lista cumple las condiciones del enunciado, es decir si la suma adyacente es un primo"""
+    largo = len(lista) - 1
+    Exito = False
+
+    particular = lista[contador - 1] + (lista[contador])
+    if esPrimo(particular) == True:
+        listaaux.append("SI")
+
+    if len(listaaux) == len(lista):
+        Exito = True
+
+    if contador == largo:
+        return Exito
+
+    else:
+        return verificarLista(lista, contador + 1, listaaux)
+
 while True:
     try:
         valor = int(input('Ingrese un valor:'))

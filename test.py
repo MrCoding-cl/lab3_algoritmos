@@ -12,8 +12,31 @@ def esPrimo(numero, a=2):
     #Para al siguiente divisor
     return esPrimo(numero,a+1)
 
-def verificarLista(lista:list):
 
+
+lista=[1,6,5,2,3,4]
+contador=0
+listaaux=[]
+
+def verificarLista(lista:list,contador,listaaux):
+    largo=len(lista)-1
+    Exito=False
+
+    particular=lista[contador-1]+(lista[contador])
+    if esPrimo(particular)==True:
+        listaaux.append("SI")
+    
+    if len(listaaux)==len(lista):
+        Exito=True
+    
+    if contador==largo:
+        return Exito
+    
+    else:
+        return verificarLista(lista,contador+1,listaaux)
+    
+    
+    
 
 
 
