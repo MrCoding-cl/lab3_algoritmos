@@ -14,105 +14,47 @@ def esPrimo(numero, a=2):
 
 
 
-lista=[1,6,5,2,3,4]
-contador=0
-listaaux=[]
 
-def verificarLista(lista:list,contador=0,listaaux=[]):
-    largo=len(lista)-1
-    Exito=False
 
-    particular=lista[contador-1]+(lista[contador])
-    if esPrimo(particular)==True:
+def verificarLista(lista: list, contador=0, listaaux=None):
+    """Esta funcion verifica si la lista cumple las condiciones del enunciado, es decir si la suma adyacente es un primo
+    Esta funcion tiene que recibir como parametro si o si la lista a verificar, contador=0 y listaaux=[]
+    """
+
+    if listaaux is None:
+        listaaux = []
+    largo = len(lista) - 1
+    Exito = False
+
+    particular = lista[contador - 1] + (lista[contador])
+    if esPrimo(particular) == True:
         listaaux.append("SI")
-    
-    if len(listaaux)==len(lista):
-        Exito=True
-    
-    if contador==largo:
+
+    if len(listaaux) == len(lista):
+        Exito = True
+
+    if contador == largo:
         return Exito
-    
+
     else:
-        return verificarLista(lista,contador+1,listaaux)
+        return verificarLista(lista, contador + 1, listaaux)
     
 
-# def permutations(lst):
-#     if len(lst) <= 1:
-#         return [lst]
-#     l = []
-#     for i in range(len(lst)):
-#         m = lst[i]
-#         remlst = lst[:i] + lst[i+1:]
-#         for p in permutations(remlst):
-#             l.append([m] + p)
-#     return l
-#
-
-# def permut(array):
-#     if len(array) == 1:
-#         return [array]
-#     res = []
-#     for permutation in permut(array[1:]):
-#         for i in range(len(array)):
-#             res.append(permutation[:i] + array[0:1] + permutation[i:])
-#     return res
-
-
-def permutation(lst):
-    # If lst is empty then there are no permutations
-    if len(lst) == 0:
+def permutar(lista):
+    if len(lista) == 0:
         return []
+    if len(lista) == 1:
+        return [lista]
+    listafinal = []
 
-        # If there is only one element in lst then, only
-    # one permuatation is possible
-    if len(lst) == 1:
-        return [lst]
+    for i in range(len(lista)):
+        m = lista[i]
+        remLst = lista[:i] + lista[i + 1:]
+        for p in permutar(remLst):
+            listafinal.append([m] + p)
 
-        # Find the permutations for lst if there are
-    # more than 1 characters
+    return listafinal
 
-    l = []  # empty list that will store current permutation
-
-    # Iterate the input(lst) and calculate the permutation
-    for i in range(len(lst)):
-        m = lst[i]
-
-        # Extract lst[i] or m from the list.  remLst is
-        # remaining list
-        remLst = lst[:i] + lst[i + 1:]
-
-        # Generating all permutations where m is first
-        # element
-        for p in permutation(remLst):
-            l.append([m] + p)
-    return l
-
-
-
-def permutar(lst):
-    # Si la lista esta vacia no es necesario permutar
-    if len(lst) == 0:
-        return []
-
-
-    # si tiene un elemento, hay solo una permutacion posible
-    if len(lst) == 1:
-        return [lst]
-    l = []  # empty list that will store current permutation
-
-    # Iterate the input(lst) and calculate the permutation
-    for i in range(len(lst)):
-        m = lst[i]
-
-        # Extract lst[i] or m from the list.  remLst is
-        # remaining list
-        remLst = lst[:i] + lst[i + 1:]
-
-        # Generating all permutations where m is first
-        # element
-        for p in permutation(remLst):
-            l.append([m] + p)
-    return l
 
 
 def Desglosar(numero:int,lista=[]):
@@ -128,3 +70,53 @@ def Desglosar(numero:int,lista=[]):
     else:
         lista.append(numero)
         return Desglosar(numero-1,lista)
+
+
+
+
+def purificar(lista,contador=0,listaaux=None):
+    largo = len(lista) - 1
+    if listaaux is None:
+        listaaux = []
+
+    if len(lista) == 0:
+        return []
+
+
+    if lista[contador][0]==1:
+        listaaux.append(lista[contador])
+
+    if contador==largo:
+        return listaaux
+
+    else:
+        return purificar(lista,contador+1,listaaux)
+
+def Hacer(numero:int,contador,listafinal):
+    lista=Desglosar(numero)
+    permutacion=permutar(lista)
+    contatemp=0
+    listaaux=[]
+    if contador==numero-1:
+        return listafinal
+
+    if verificarLista(permutacion[contador],contatemp,listaaux)==True:
+        listafinal.append(permutacion[contador])
+    else:
+        return Hacer(numero,contador+1,listafinal)
+
+
+numero=8
+lista=Desglosar(numero)
+permutacion=permutar(lista)
+listaaux=[]
+
+#
+# vilgax=[[1, 2, 3, 8, 5, 6, 7, 4], [1, 2, 5, 8, 3, 4, 7, 6], [1, 4, 7, 6, 5, 8, 3, 2], [1, 6, 7, 4, 3, 8, 5, 2], [2, 1, 4, 7, 6, 5, 8, 3], [2, 1, 6, 7, 4, 3, 8, 5], [2, 3, 8, 5, 6, 7, 4, 1], [2, 5, 8, 3, 4, 7, 6, 1], [3, 2, 1, 4, 7, 6, 5, 8], [3, 4, 7, 6, 1, 2, 5, 8], [3, 8, 5, 2, 1, 6, 7, 4], [3, 8, 5, 6, 7, 4, 1, 2], [4, 1, 2, 3, 8, 5, 6, 7], [4, 3, 8, 5, 2, 1, 6, 7], [4, 7, 6, 1, 2, 5, 8, 3], [4, 7, 6, 5, 8, 3, 2, 1], [5, 2, 1, 6, 7, 4, 3, 8], [5, 6, 7, 4, 1, 2, 3, 8], [5, 8, 3, 2, 1, 4, 7, 6], [5, 8, 3, 4, 7, 6, 1, 2], [6, 1, 2, 5, 8, 3, 4, 7], [6, 5, 8, 3, 2, 1, 4, 7], [6, 7, 4, 1, 2, 3, 8, 5], [6, 7, 4, 3, 8, 5, 2, 1], [7, 4, 1, 2, 3, 8, 5, 6], [7, 4, 3, 8, 5, 2, 1, 6], [7, 6, 1, 2, 5, 8, 3, 4], [7, 6, 5, 8, 3, 2, 1, 4], [8, 3, 2, 1, 4, 7, 6, 5], [8, 3, 4, 7, 6, 1, 2, 5], [8, 5, 2, 1, 6, 7, 4, 3], [8, 5, 6, 7, 4, 1, 2, 3]]
+# for recorrer in range(0,len(permutacion)):
+#     if verificarLista(permutacion[recorrer])==True:
+#         listaaux.append(permutacion[recorrer])
+
+
+
+

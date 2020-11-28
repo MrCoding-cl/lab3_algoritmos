@@ -13,30 +13,25 @@ def esPrimo(numero, a=2):
 
 
 
+def verificarLista(lista: list, contador=0, listaaux=None):
+    """Esta funcion verifica si la lista cumple las condiciones del enunciado, es decir si la suma adyacente es un primo
+    Esta funcion tiene que recibir como parametro si o si la lista a verificar, contador=0 y listaaux=[]
+    """
 
-#Definicion  de parametros
-lista=[1,2,3,8,5,6,7,4]
-contador=0
-listaaux=[]
-
-
-
-
-def verificarLista(lista: list, contador, listaaux):
+    if listaaux is None:
+        listaaux = []
     largo = len(lista) - 1
     Exito = False
 
-    particular = lista[contador] + (lista[contador + 1])
+    particular = lista[contador - 1] + (lista[contador])
     if esPrimo(particular) == True:
         listaaux.append("SI")
 
     if len(listaaux) == len(lista):
         Exito = True
 
-    if contador == len(lista):
+    if contador == largo:
         return Exito
 
     else:
         return verificarLista(lista, contador + 1, listaaux)
-
-
