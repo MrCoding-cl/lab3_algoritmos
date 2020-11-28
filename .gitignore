@@ -23,6 +23,7 @@ sdist/
 var/
 Include/
 Scripts/
+scripts/
 Lib/
 wheels/
 share/python-wheels/
