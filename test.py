@@ -38,7 +38,7 @@ def verificarLista(lista: list, contador=0, listaaux=None):
 
     else:
         return verificarLista(lista, contador + 1, listaaux)
-    
+
 
 def permutar(lista):
     if len(lista) == 0:
@@ -75,6 +75,7 @@ def Desglosar(numero:int,lista=[]):
 
 
 def purificar(lista,contador=0,listaaux=None):
+    """Esta funcion elimina de la permutacion todos los que tenga un 1 al principcio d ela lista"""
     largo = len(lista) - 1
     if listaaux is None:
         listaaux = []

@@ -1,16 +1,13 @@
-
 #Funcion simple para comprobar si un numero es par
 def EsPar(numero:int):
-    #LISTO
     if numero%2==0:
         return numero
     else:
-        return None
+        return -1
 
 #Se crea una funcion para saber si un numero es primo, se utiliza recursividad para evitar usar funciones externas que proporcione el lenguaje
 
 def esPrimo(numero, a=2):
-    #LISTO Y OPTIMIZADO
 
     # Caso base
     if numero <= 2:
@@ -25,10 +22,9 @@ def esPrimo(numero, a=2):
 
 
 def Desglosar(numero:int,lista=[]):
-    #LISTO Y OPTIMIZADO
     """Esta funcion recibe un numero y devuelve una lista a partir de este numero creado, desde 1 hasta n como aparece en el enunciado"""
     def rev(l):
-        """Esta funcion hace que la lista creada se le de reversa, todo recursivamente"""
+        """Esta funcion auxiliar hace que la lista creada se le de reversa, todo recursivamente"""
         if len(l) == 0: return []
         return [l[-1]] + rev(l[:-1])
 
@@ -41,9 +37,8 @@ def Desglosar(numero:int,lista=[]):
 
 
 def verificarLista(lista: list, contador=0, listaaux=None):
-    #LISTO Y OPTIMIZADO
     """Esta funcion verifica si la lista cumple las condiciones del enunciado, es decir si la suma adyacente es un primo
-    Esta funcion tiene que recibir como parametro si o si la lista a verificar, contador=0 y listaaux=[]
+    Esta funcion tiene que recibir como parametro si o si la lista a verificar
     """
     if listaaux is None:
         listaaux = []
@@ -65,56 +60,40 @@ def verificarLista(lista: list, contador=0, listaaux=None):
         return verificarLista(lista, contador + 1, listaaux)
 
 
-def permutar(lista):
-    #Casi listo, solo falta hacerlo recursivo
-    if len(lista) == 0:
-        return []
-    if len(lista) == 1:
-        return [lista]
-    listafinal = []
-
-    for i in range(len(lista)):
-        m = lista[i]
-        remLst = lista[:i] + lista[i + 1:]
-        for p in permutar(remLst):
-            listafinal.append([m] + p)
-    return listafinal
-
-
-def Hacer(numero:int,contador=0,listafinal=None):
-    #Esta malo, NO LISTO
-
-    if listafinal is None:
-        listaaux = []
-
-    lista=Desglosar(numero)
-    permutacion=permutar(lista)
-    if contador==(numero-1):
-        return listafinal
-
-    if verificarLista(permutacion[contador])==True:
-        listafinal.append(permutacion[contador])
+def permutar(lista, contador=0):
+    #Si la permutacion cumple con le verificacion este se imprime
+    if contador == len(lista) and verificarLista(lista)==True:
+        print(*lista, sep=" ")
     else:
-        return Hacer(numero,contador+1,listafinal)
+        for i in range(contador, len(lista)):
+            #se recorre la lista
+            if contador==0 and lista[i]!=1:
+                #Si la lista  no empieza por uno esta pasa
+                1
+            else:
+                #Caso contrario se hace la permutacion
+                lista[contador], lista[i] = lista[i], lista[contador]
+                #Se devuelve la lsita y se aplica recursividad
+                permutar(lista, contador+1)
+                lista[contador], lista[i] = lista[i], lista[contador]
 
 
-contador=0
 
-while True:
-    #Este es el menusito, estoy pensando en cambiarlo ya que contiene un while xd, facilmente reemplazable por un menu recursivo
-    try:
-        valor = int(input('Ingrese un valor:'))
-        if valor==0:
-            print('El cero no es positivo')
-            continue
-        if EsPar(valor)==None:
-            print(f'Debe ser par el valor ingresado')
-            continue
+numero=int(input("Ingresa un numero entero positivo y par:"))
+if numero==0:
+    print("el cero no es positivo ni negativo")
 
-        print(Hacer(valor))
+elif numero<1:
+    print("Tiene que ser un numero entero positivo")
 
-    except:
-        print('El valor debe ser un entero positivo')
-        continue
+elif EsPar(numero)==-1:
+    print("Debe ser un numero par")
+
+else:
+    lista = Desglosar(numero)
+    permutar(lista)
+
+
+
 
 
